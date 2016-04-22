@@ -1,6 +1,6 @@
 - hosts: all
   roles:
-    - ansible-role-hbase
+    - ansible-role-hbase-regionserver
   vars:
     hbase_env_sh: |
       . {{ hbase_conf_dir }}/hbase-env-dist.sh
@@ -18,3 +18,6 @@
         -
           - name: hbase.zookeeper.property.dataDir
           - value: /var/db/zookeeper
+        -
+          - name: hbase.cluster.distributed
+          - value: true

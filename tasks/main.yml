@@ -13,7 +13,7 @@
     owner: "{{ hbase_user }}"
     group: "{{ hbase_group }}"
     state: directory
-  notify: Restart hbase
+  notify: Restart hbase_regionserver
 
 - name: Create db directory
   file:
@@ -22,7 +22,7 @@
     owner: "{{ hbase_user }}"
     group: "{{ hbase_group }}"
     state: directory
-  notify: Restart hbase
+  notify: Restart hbase_regionserver
 
 - name: Create zookeeper directory
   file:
@@ -31,34 +31,34 @@
     owner: "{{ hbase_user }}"
     group: "{{ hbase_group }}"
     state: directory
-  notify: Restart hbase
+  notify: Restart hbase_regionserver
 
 - name: Create conf directory
   file:
     path: "{{ hbase_conf_dir }}"
     state: directory
-  notify: Restart hbase
+  notify: Restart hbase_regionserver
 
 - name: Create hbase-site.xml
   template:
     src: hbase-site.xml.j2
     dest: "{{ hbase_conf }}"
-  notify: Restart hbase
+  notify: Restart hbase_regionserver
 
 - name: Create hbase-env.sh
   template:
     src: hbase-env.sh.j2
     dest: "{{ hbase_conf_dir }}/hbase-env.sh"
-  notify: Restart hbase
+  notify: Restart hbase_regionserver
 
 - name: Create regionservers
   template:
     src: regionservers.j2
     dest: "{{ hbase_conf_dir }}/regionservers"
-  notify: Restart hbase
+  notify: Restart hbase_regionserver
 
 - name: Start hbase
   service:
-    name: "{{ hbase_service }}"
+    name: "{{ hbase_regionserver_service }}"
     enabled: true
     state: started

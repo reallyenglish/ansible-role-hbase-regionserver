@@ -19,12 +19,13 @@ Role Variables
 | hbase\_db\_dir        | database dir | "{{ \_\_hbase\_db\_dir }}" |
 | hbase\_zookeeper\_dir | path to zoopkeeper dir | "{{ \_\_hbase\_zookeeper\_dir }}" |
 | hbase\_conf\_dir      | path to config file dir | "{{ \_\_hbase\_conf\_dir }}" |
-| hbase\_service        | service name | "{{ \_\_hbase\_service }}" |
+| hbase\_regionserver\_service | service name | "{{ \_\_hbase\_service }}" |
 | hbase\_conf           | path to hbase\_site.xml | "{{ \_\_hbase\_conf }}" |
 | hbase\_flags          | not used yet | "" |
 | hbase\_site           | content of site.xml in a dict | "" |
 | hbase\_env\_sh        | content of hbase\_env.sh | ". {{ hbase\_conf\_dir }}/hbase-env-dist.sh" |
 | hbase\_regionservers  | a list of regionservers | [] |
+
 Dependencies
 ------------
 
@@ -53,6 +54,9 @@ Example Playbook
         -
           - name: hbase.zookeeper.property.dataDir
           - value: /var/db/zookeeper
+        -
+          - name: hbase.cluster.distributed
+          - value: true
 
 License
 -------

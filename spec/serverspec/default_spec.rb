@@ -2,11 +2,11 @@ require 'spec_helper'
 require 'serverspec'
 
 package = 'hbase'
-service = 'hbase'
+service = 'hbase_regionserver'
 config  = '/etc/hbase/hbase.conf'
 user    = 'hbase'
 group   = 'hbase'
-ports   = [ 2181 ]
+ports   = [ 16020 ]
 log_dir = '/var/log/hbase'
 db_dir  = '/var/lib/hbase'
 config_dir = '/etc/hbase'
@@ -18,7 +18,6 @@ when 'freebsd'
   config = '/usr/local/etc/hbase/hbase-site.xml'
   env_config = '/usr/local/etc/hbase/hbase-env.sh'
   db_dir = '/var/db/hbase'
-  service = 'hbase_master'
 end
 
 regionservers_file = "#{config_dir}/regionservers"

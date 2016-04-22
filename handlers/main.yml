@@ -1,7 +1,7 @@
 ---
 
-- name: Restart hbase
+- name: Restart hbase_regionserver
   service:
-    name: "{{ hbase_service }}"
+    name: "{{ hbase_regionserver_service }}"
     enabled: yes
     state: restarted
