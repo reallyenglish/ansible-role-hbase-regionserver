@@ -1,0 +1,64 @@
+---
+# tasks file for ansible-role-hbase
+
+- include_vars: "{{ ansible_os_family }}.yml"
+
+- include: install-FreeBSD.yml
+  when: ansible_os_family == 'FreeBSD'
+
+- name: Create log directory
+  file:
+    path: "{{ hbase_log_dir }}"
+    mode: 0755
+    owner: "{{ hbase_user }}"
+    group: "{{ hbase_group }}"
+    state: directory
+  notify: Restart hbase
+
+- name: Create db directory
+  file:
+    path: "{{ hbase_db_dir }}"
+    mode: 0755
+    owner: "{{ hbase_user }}"
+    group: "{{ hbase_group }}"
+    state: directory
+  notify: Restart hbase
+
+- name: Create zookeeper directory
+  file:
+    path: "{{ hbase_zookeeper_dir }}"
+    mode: 0755
+    owner: "{{ hbase_user }}"
+    group: "{{ hbase_group }}"
+    state: directory
+  notify: Restart hbase
+
+- name: Create conf directory
+  file:
+    path: "{{ hbase_conf_dir }}"
+    state: directory
+  notify: Restart hbase
+
+- name: Create hbase-site.xml
+  template:
+    src: hbase-site.xml.j2
+    dest: "{{ hbase_conf }}"
+  notify: Restart hbase
+
+- name: Create hbase-env.sh
+  template:
+    src: hbase-env.sh.j2
+    dest: "{{ hbase_conf_dir }}/hbase-env.sh"
+  notify: Restart hbase
+
+- name: Create regionservers
+  template:
+    src: regionservers.j2
+    dest: "{{ hbase_conf_dir }}/regionservers"
+  notify: Restart hbase
+
+- name: Start hbase
+  service:
+    name: "{{ hbase_service }}"
+    enabled: true
+    state: started

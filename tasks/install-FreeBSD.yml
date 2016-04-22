@@ -1,0 +1,27 @@
+---
+
+- name: Install hbase
+  pkgng:
+    name: hbase
+    state: present
+  when: ansible_os_family == 'FreeBSD'
+
+- name: upload patch-hbase_master to remote XXX https://github.com/ansible/ansible-modules-extras/issues/338
+  copy:
+    src: patch-hbase_master
+    dest: /tmp/patch-hbase_master
+
+- name: Patch hbase_master rc.subr script
+  patch:
+    src: /tmp/patch-hbase_master
+    dest: /usr/local/etc/rc.d/hbase_master
+
+- name: upload patch-hbase_regionserver to remote XXX https://github.com/ansible/ansible-modules-extras/issues/338
+  copy:
+    src: patch-hbase_regionserver
+    dest: /tmp/patch-hbase_regionserver
+
+- name: Patch hbase_master rc.subr script
+  patch:
+    src: /tmp/patch-hbase_regionserver
+    dest: /usr/local/etc/rc.d/hbase_regionserver

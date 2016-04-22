@@ -1,0 +1,7 @@
+---
+
+- name: Restart hbase
+  service:
+    name: "{{ hbase_service }}"
+    enabled: yes
+    state: restarted

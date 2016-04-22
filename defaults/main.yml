@@ -1,0 +1,13 @@
+hbase_user: hbase
+hbase_group: hbase
+hbase_log_dir: /var/log/hbase
+hbase_db_dir: "{{ __hbase_db_dir }}"
+hbase_zookeeper_dir: "{{ __hbase_zookeeper_dir }}"
+hbase_conf_dir: "{{ __hbase_conf_dir }}"
+hbase_service: "{{ __hbase_service }}"
+hbase_conf: "{{ __hbase_conf }}"
+hbase_flags: ""
+
+hbase_site: {}
+hbase_env_sh: ". {{ hbase_conf_dir }}/hbase-env-dist.sh"
+hbase_regionservers: []

@@ -1,0 +1,5 @@
+__hbase_db_dir: /var/db/hbase
+__hbase_conf_dir: /usr/local/etc/hbase
+__hbase_conf: /usr/local/etc/hbase/hbase-site.xml
+__hbase_service: hbase_master
+__hbase_zookeeper_dir: /var/db/zookeeper
